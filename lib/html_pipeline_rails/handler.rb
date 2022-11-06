@@ -6,8 +6,9 @@ module HtmlPipelineRails
       :html
     end
 
-    def call(template)
-      compiled_source = self.class.erb.call(template)
+    def call(template, source = nil)
+      source ||= template.source
+      compiled_source = self.class.erb.call(template, source)
 
       <<-END
         pipeline = HtmlPipelineRails.configuration.pipeline
